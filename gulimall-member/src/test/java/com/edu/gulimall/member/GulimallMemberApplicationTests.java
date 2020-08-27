@@ -1,10 +1,16 @@
 package com.edu.gulimall.member;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-@SpringBootTest
-class GulimallMemberApplicationTests {
+import org.springframework.test.context.junit4.SpringRunner;
 
-    void contextLoads() {
+@SpringBootTest
+@RunWith(SpringRunner.class)
+public class GulimallMemberApplicationTests {
+
+    @Test
+    public void contextLoads() {
     }
 
 }

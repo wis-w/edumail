@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: root
+    password: root1234
+    url: jdbc:mysql://localhost:3306/gulimall_wms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml #该值时默认值
+  global-config:
+    db-config:
+      id-type: auto #设置主键自增
+
+logging:
+  level:
+    com.edu.gulimall.ware.dao: debug #该包启用debug模式
+
+server:
+  port: 11000
