@@ -3,6 +3,7 @@ package com.edu.gulimall.product;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 整合mybatis Plus
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  1）配置数据源：导入驱动->配置数据源
  *  2）配置mybatis Plus相关信息:使用@MapperScan扫描->配置映射文件位置
  */
+@EnableDiscoveryClient// 开启服务注册发现功能
 @MapperScan("com.edu.gulimall.product.dao")
 @SpringBootApplication
 public class ProductApplication {

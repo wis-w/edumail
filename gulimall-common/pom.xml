@@ -51,8 +51,26 @@
             <scope>provided</scope><!--目标环境已存在，打包时不会打进去-->
         </dependency>
 
+        <!--阿里巴巴注册中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
 
     </dependencies>
+
+    <dependencyManagement><!--依赖管理，版本管理-->
+            <dependencies>
+                <dependency>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                    <version>2.1.0.RELEASE</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+            </dependencies>
+
+    </dependencyManagement>
 
 
 </project>
