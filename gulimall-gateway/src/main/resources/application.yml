@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: test_route
+          uri: https://www.baidu.com   #请求访问的地址
+          predicates:   #断言
+            - Query=url,baidu   #表示参数中携带url 并且参数时百度时
+        - id: qq_route
+          uri: https://www.qq.com #请求访问的地址
+          predicates:   #断言
+            - Query=url,qq   #表示参数中携带url 并且参数时qq时
+  application:
+    name: gulimall-gateway
+
+server:
+  port: 88
