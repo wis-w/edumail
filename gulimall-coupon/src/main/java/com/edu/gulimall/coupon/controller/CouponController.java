@@ -1,19 +1,16 @@
 package com.edu.gulimall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.edu.gulimall.coupon.entity.CouponEntity;
-import com.edu.gulimall.coupon.service.CouponService;
 import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.R;
+import com.edu.gulimall.coupon.entity.CouponEntity;
+import com.edu.gulimall.coupon.service.CouponService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Map;
 
 
 
@@ -24,11 +21,25 @@ import com.edu.common.utils.R;
  * @email wyg@qq.com
  * @date 2020-08-27 21:07:38
  */
+@Slf4j
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+    /**
+     * 远程调用测试
+     * @return
+     */
+    @RequestMapping("/member/list")
+    public R memberCoupons(){
+        log.info("{}简单的远程调用测试，没有业务意义",new Object[]{"优惠券服务："});
+        CouponEntity couponEntity = new CouponEntity();
+        couponEntity.setAmount(new BigDecimal("1.0"));
+        couponEntity.setCouponName("会员优惠");
+        return R.ok().put("coupons", Arrays.asList(couponEntity));
+    }
 
     /**
      * 列表

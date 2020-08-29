@@ -1,19 +1,17 @@
 package com.edu.gulimall.member.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.edu.gulimall.member.entity.MemberCollectSubjectEntity;
-import com.edu.gulimall.member.service.MemberCollectSubjectService;
 import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.R;
+import com.edu.gulimall.member.entity.MemberCollectSubjectEntity;
+import com.edu.gulimall.member.entity.MemberEntity;
+import com.edu.gulimall.member.feign.CouponFeignService;
+import com.edu.gulimall.member.service.MemberCollectSubjectService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Map;
 
 
 
@@ -24,11 +22,29 @@ import com.edu.common.utils.R;
  * @email wyg@qq.com
  * @date 2020-08-27 21:15:45
  */
+@Slf4j
 @RestController
 @RequestMapping("member/membercollectsubject")
 public class MemberCollectSubjectController {
     @Autowired
     private MemberCollectSubjectService memberCollectSubjectService;
+
+    @Autowired
+    CouponFeignService couponFeignService;
+
+    /**
+     * openFeign远程调用测试
+     * @return
+     */
+    @RequestMapping("/test")
+    public R test() {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNickname("小三");
+        memberEntity.setCity("厦门");
+        R memberCoupons = couponFeignService.memberCoupons();
+        log.info(memberCoupons.get("coupons").toString());
+        return R.ok().put("member", memberEntity).put("coupons", memberCoupons.get("coupons"));
+    }
 
     /**
      * 列表
