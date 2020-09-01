@@ -17,9 +17,5 @@ mybatis-plus:
     db-config:
       id-type: auto #设置主键自增
 
-logging:
-  level:
-    com.edu.gulimall.order.dao: debug
-
 server:
   port: 9000
