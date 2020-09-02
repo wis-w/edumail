@@ -13,6 +13,17 @@ spring:
           uri: https://www.qq.com #请求访问的地址
           predicates:   #断言
             - Query=url,qq   #表示参数中携带url 并且参数时qq时
+        - id: admin_route
+          uri: lb://renren-fast #lb代表负载均衡
+          predicates:
+            - Path=/api/** #断言 请求的路径以api开头
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment} # 路径重写配置
+
+## 前端项目 发起 http://localhost:88/api/captcha.jpg 到网关  网关根据路由规则，在nacos中找到renren-fast
+## 后直接请求为http://localhost:8080/api/captcha.jpg
+## 因此使用网关的路径重写功能替换成真正需要的访问路径http://localhost:8080/reren-fast/captcha.jpg
+
   application:
     name: gulimall-gateway
 
