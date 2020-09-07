@@ -7,7 +7,7 @@ spring:
     cloud:
       nacos:
         discovery:
-          server-addr: localhost:8848
+          server-addr: 127.0.0.1:8848
     application:
       name: gulimall-product
 
@@ -16,6 +16,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto #设置主键自增
+      logic-delete-value: 1 #设置逻辑删除
+      logic-not-delete-value: 0 #设置逻辑删除
 
 logging:
   level:

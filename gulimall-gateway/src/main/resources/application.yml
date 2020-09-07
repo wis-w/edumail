@@ -13,6 +13,12 @@ spring:
           uri: https://www.qq.com #请求访问的地址
           predicates:   #断言
             - Query=url,qq   #表示参数中携带url 并且参数时qq时
+        - id: product_route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/** #断言 请求的路径以api/product开头
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 路径重写配置
         - id: admin_route
           uri: lb://renren-fast #lb代表负载均衡
           predicates:
