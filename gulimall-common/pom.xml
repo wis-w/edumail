@@ -62,6 +62,12 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
+        <!--导入阿里巴巴的Osss 迁移到thirt-party项目-->
+ <!--       <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+        </dependency>
+-->
     </dependencies>
 
     <dependencyManagement><!--依赖管理，版本管理-->

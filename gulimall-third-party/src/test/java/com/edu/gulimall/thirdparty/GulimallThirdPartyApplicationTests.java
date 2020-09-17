@@ -1,8 +1,7 @@
-package com.edu.gulimall.product;
+package com.edu.gulimall.thirdparty;
+
 
 import com.aliyun.oss.OSSClient;
-import com.edu.gulimall.product.entity.BrandEntity;
-import com.edu.gulimall.product.service.BrandService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,35 +12,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-/**
- * 对象处处 引入 oss-starter
- * 配置key endpoint相关信息
- * 使用OSSClient
- */
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductApplicationTests {
-
-    @Autowired
-    BrandService brandService;
+@RunWith(SpringRunner.class)
+public class GulimallThirdPartyApplicationTests {
 
     @Autowired
     OSSClient ossClient;
-
-
-
-    @Test
-    public void contextLoads() {
-
-        BrandEntity brandEntity = new BrandEntity();
-        brandEntity.setBrandId(1L);
-        brandEntity.setLogo("you are a logo");
-//        brandEntity.setName("阿里巴巴");
-//        brandService.save(brandEntity);
-
-        brandService.updateById(brandEntity);
-    }
-
     @Test
     public void testOss() throws FileNotFoundException {
 //        // Endpoint以杭州为例，其它Region请按实际情况填写。
@@ -53,7 +29,7 @@ public class ProductApplicationTests {
 //        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 //        // 上传文件流。
         InputStream inputStream = new FileInputStream("D:\\Wis\\商城项目\\商城视频\\源码\\pics\\ccd1077b985c7150.jpg");
-            ossClient.putObject("wyg2020", "123.jpg", inputStream);
+        ossClient.putObject("wyg2020", "3232.jpg", inputStream);
         // 关闭OSSClient。
         ossClient.shutdown();
         System.out.println("上传完成");

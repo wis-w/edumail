@@ -10,6 +10,13 @@ spring:
           server-addr: 127.0.0.1:8848
     application:
       name: gulimall-product
+  cloud:
+    alicloud:
+      access-key: LTAI4GLAoqcGxxHxMRGXTMhP
+      secret-key: 2CcmBzdZPqzdJsvvgeFTwIv0hoADz2
+      oss:
+        endpoint: http://oss-cn-beijing.aliyuncs.com
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml #该值时默认值
