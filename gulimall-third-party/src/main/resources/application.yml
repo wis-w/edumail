@@ -5,6 +5,7 @@ spring:
       secret-key: 2CcmBzdZPqzdJsvvgeFTwIv0hoADz2
       oss:
         endpoint: http://oss-cn-beijing.aliyuncs.com
+        bucket: wyg2020
 
 server:
   port: 30000
