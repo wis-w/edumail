@@ -2,10 +2,11 @@ package com.edu.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
+import org.hibernate.validator.constraints.URL;
+
+import javax.validation.constraints.*;
+import java.io.Serializable;
 
 /**
  * 品牌
@@ -25,28 +26,40 @@ public class BrandEntity implements Serializable {
 	@TableId
 	private Long brandId;
 	/**
-	 * $column.comments
+	 * 品牌名
 	 */
+	@NotEmpty
+	@NotBlank(message = "品牌名必须提交")
 	private String name;
 	/**
-	 * $column.comments
+	 * LOGO名称
 	 */
+	@NotEmpty
+	@URL(message = "logo必须是个合法的地址")
 	private String logo;
 	/**
-	 * $column.comments
+	 * 介绍
 	 */
+	@NotEmpty
+	@NotBlank(message = "介绍必须提交")
 	private String descript;
 	/**
-	 * $column.comments
+	 * 显示状态 1：显示 0：不显示
 	 */
+	@Min(value = 0, message = "显示状态 1：显示 0：不显示")
+	@Max(value = 1, message = "显示状态 1：显示 0：不显示")
 	private Integer showStatus;
 	/**
-	 * $column.comments
+	 * 检索首字母
 	 */
+	@NotEmpty
+	@Pattern(regexp="/^[a-zA-Z]$/",message = "检索首字母必须时一个字母")
 	private String firstLetter;
 	/**
-	 * $column.comments
+	 * 排序
 	 */
+	@NotNull
+	@Min(value = 0, message = "排序必须大于等于0")
 	private Integer sort;
 
 }

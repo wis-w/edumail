@@ -5,9 +5,12 @@ import com.edu.common.utils.R;
 import com.edu.gulimall.product.entity.BrandEntity;
 import com.edu.gulimall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -53,7 +56,19 @@ public class BrandController {
      */
     @RequestMapping("/save")
    // @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Valid @RequestBody BrandEntity brand, BindingResult result){
+        if(result.hasErrors()){
+            Map<String,String> map = new HashMap<>();
+            // 获取的校验结果
+            result.getFieldErrors().forEach((item) -> {
+                // FileError 获取到的校验错误
+                String message = item.getDefaultMessage();
+                // 获取错误的属性名
+                String field = item.getField();
+                map.put(field, message);
+            });
+            return R.error(400, "提交的信息不合法").put("data", map);
+        }
 		brandService.save(brand);
 
         return R.ok();
@@ -64,7 +79,19 @@ public class BrandController {
      */
     @RequestMapping("/update")
     // @RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Valid @RequestBody BrandEntity brand, BindingResult result){
+        if(result.hasErrors()){
+            Map<String,String> map = new HashMap<>();
+            // 获取的校验结果
+            result.getFieldErrors().forEach((item) -> {
+                // FileError 获取到的校验错误
+                String message = item.getDefaultMessage();
+                // 获取错误的属性名
+                String field = item.getField();
+                map.put(field, message);
+            });
+            return R.error(400, "提交的信息不合法").put("data", map);
+        }
 		brandService.updateById(brand);
 
         return R.ok();

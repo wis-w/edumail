@@ -17,6 +17,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      logic-not-delete-value: 0 #设置逻辑删除
  *  2）设置逻辑删除的bean组件 高版本可省略
  *  3）在实体类上加上逻辑删除注解@TableLogic
+ * 3。JSR303
+ *  给Bean增加校验注解 @Email @NotNUll
+ *  Controller增加 @Valid public R save(@Valid @RequestBody BrandEntity brand) 开启校验规则
+ *  效果：检验错误会有默认的响应
+ *  在校验的bean后面紧跟一个BindingResult就可以得到校验的结果
+ *  public R save(@Valid @RequestBody BrandEntity brand, BindingResult result)
+ *
  */
 @EnableDiscoveryClient// 开启服务注册发现功能
 @MapperScan("com.edu.gulimall.product.dao")
