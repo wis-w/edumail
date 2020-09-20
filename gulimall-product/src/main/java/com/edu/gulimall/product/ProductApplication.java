@@ -24,6 +24,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *  在校验的bean后面紧跟一个BindingResult就可以得到校验的结果
  *  public R save(@Valid @RequestBody BrandEntity brand, BindingResult result)
  *
+ * 4、统一的异常处理 @ControllerAdvice
+ *
  */
 @EnableDiscoveryClient// 开启服务注册发现功能
 @MapperScan("com.edu.gulimall.product.dao")
