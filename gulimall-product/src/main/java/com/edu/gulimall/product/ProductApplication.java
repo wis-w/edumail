@@ -18,11 +18,31 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *  2）设置逻辑删除的bean组件 高版本可省略
  *  3）在实体类上加上逻辑删除注解@TableLogic
  * 3。JSR303
- *  给Bean增加校验注解 @Email @NotNUll
- *  Controller增加 @Valid public R save(@Valid @RequestBody BrandEntity brand) 开启校验规则
- *  效果：检验错误会有默认的响应
- *  在校验的bean后面紧跟一个BindingResult就可以得到校验的结果
- *  public R save(@Valid @RequestBody BrandEntity brand, BindingResult result)
+ *  1)给Bean增加校验注解 @Email @NotNUll
+ *      Controller增加 @Valid public R save(@Valid @RequestBody BrandEntity brand) 开启校验规则
+ *  2)效果：检验错误会有默认的响应
+ *  3)在校验的bean后面紧跟一个BindingResult就可以得到校验的结果
+ *      public R save(@Valid @RequestBody BrandEntity brand, BindingResult result)
+ *  4)分组校验（多场景的复杂校验）
+ *      1-、增加以上校验规则
+ *        @NotNull(message = "修改必须指定ID",groups = {UpdateGroup.class})
+ *        @Null(message = "新增不可指定ID",groups = {AddGroup.class})
+ *     2-Controller
+ *     @RequestMapping("/update")
+ *     // @RequiresPermissions("product:brand:update")
+ *     public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand)
+ *     3-默认没有增加校验分组信息时，在分组校验时不生效，只在没有分组校验时才生效
+ *  5)、自定义校验
+ *     1-编写自定义的注解校验
+ *          @ListValue(vals={0,1},groups = {UpdateGroup.class,AddGroup.class})
+ * 	         private Integer showStatus;
+ *     2-编写指定以的校验器  ListValueConsteaintValidator implements ConstraintValidator
+ *     3-使用自定义的校验器，和自定义注解
+ *          @Documented
+ *          @Constraint(validatedBy = { ListValueConsteaintValidator.class })// 使用什么进行校验
+ *          @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })// 可以标注在那些地方
+ *          @Retention(RUNTIME)// 运行时使用
+ *          public @interface ListValue
  *
  * 4、统一的异常处理 @ControllerAdvice
  *

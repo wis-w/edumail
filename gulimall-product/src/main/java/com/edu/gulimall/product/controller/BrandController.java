@@ -2,12 +2,15 @@ package com.edu.gulimall.product.controller;
 
 import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.R;
+import com.edu.common.vaild.AddGroup;
+import com.edu.common.vaild.UpdateGroup;
+import com.edu.common.vaild.UpdateStatusGroup;
 import com.edu.gulimall.product.entity.BrandEntity;
 import com.edu.gulimall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -54,23 +57,21 @@ public class BrandController {
      */
     @RequestMapping("/update")
     // @RequiresPermissions("product:brand:update")
-    public R update(@Valid @RequestBody BrandEntity brand){
-        // 此处不再使用BindingResult result 而使用统一的异常处理机制  com.edu.gulimall.product.exeception.GulimallExeceptionControllerAdvice
-        //public R update(@Valid @RequestBody BrandEntity brand, BindingResult result){
-//        if(result.hasErrors()){
-//            Map<String,String> map = new HashMap<>();
-//            // 获取的校验结果
-//            result.getFieldErrors().forEach((item) -> {
-//                // FileError 获取到的校验错误
-//                String message = item.getDefaultMessage();
-//                // 获取错误的属性名
-//                String field = item.getField();
-//                map.put(field, message);
-//            });
-//            return R.error(400, "提交的信息不合法").put("data", map);
-//        }
+    public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand){
 
 		brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    // @RequiresPermissions("product:brand:update")
+    public R updateStatus(@Validated({UpdateStatusGroup.class}) @RequestBody BrandEntity brand){
+
+        brandService.updateById(brand);
 
         return R.ok();
     }
@@ -80,7 +81,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
     // @RequiresPermissions("product:brand:save")
-    public R save(@Valid @RequestBody BrandEntity brand){
+    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand){
 //        if(result.hasErrors()){
 //            Map<String,String> map = new HashMap<>();
 //            // 获取的校验结果
