@@ -3,6 +3,7 @@ package com.edu.gulimall.product;
 import com.aliyun.oss.OSSClient;
 import com.edu.gulimall.product.entity.BrandEntity;
 import com.edu.gulimall.product.service.BrandService;
+import com.edu.gulimall.product.service.CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * 对象处处 引入 oss-starter
@@ -27,6 +29,15 @@ public class ProductApplicationTests {
 
     @Autowired
     OSSClient ossClient;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Test
+    public void test(){
+        Long[] paths = categoryService.findCateLogPath(225L);
+        System.out.println(Arrays.asList(paths));
+    }
 
 
 

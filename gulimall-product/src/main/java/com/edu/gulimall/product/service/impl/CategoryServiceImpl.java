@@ -10,6 +10,8 @@ import com.edu.gulimall.product.entity.CategoryEntity;
 import com.edu.gulimall.product.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,6 +63,33 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         // 逻辑删除
         baseMapper.deleteBatchIds(asList);
 
+    }
+
+    /**
+     * 找到catelogId的完全路径，父路径/子路径/子路
+     * @param catelogId
+     * @return
+     */
+    @Override
+    public Long[] findCateLogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+
+        List<Long> list = findParent(catelogId, paths);
+
+        Collections.reverse(paths);
+
+        return (Long[]) list.toArray(new Long[list.size()]);
+    }
+
+    private List<Long> findParent(Long catelogId, List<Long> paths){
+        // 查询父id进行收集
+        paths.add(catelogId);
+        // 根据id查询数据库
+        CategoryEntity entity = this.getById(catelogId);
+        if(entity.getParentCid()!=0){
+            findParent(entity.getParentCid(), paths);
+        }
+        return paths;
     }
 
     /**
