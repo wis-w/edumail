@@ -1,19 +1,16 @@
 package com.edu.gulimall.product.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.edu.gulimall.product.entity.CategoryBrandRelationEntity;
-import com.edu.gulimall.product.service.CategoryBrandRelationService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.R;
+import com.edu.gulimall.product.entity.CategoryBrandRelationEntity;
+import com.edu.gulimall.product.service.CategoryBrandRelationService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -27,8 +24,22 @@ import com.edu.common.utils.R;
 @RestController
 @RequestMapping("product/categorybrandrelation")
 public class CategoryBrandRelationController {
-    @Autowired
+    @Resource
     private CategoryBrandRelationService categoryBrandRelationService;
+
+    /**
+     * 获取当前品牌的所有分类
+     * @param brandId
+     * @return
+     */
+    @GetMapping("/catelog/list")
+    public R logList(@RequestParam("brandId") Long brandId){
+
+        List<CategoryBrandRelationEntity> data = categoryBrandRelationService.
+                list(new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId));
+
+        return R.ok().put("data",data);
+    }
 
     /**
      * 列表
@@ -54,12 +65,12 @@ public class CategoryBrandRelationController {
     }
 
     /**
-     * 保存
+     * 品牌信息保存
      */
     @RequestMapping("/save")
    // @RequiresPermissions("product:categorybrandrelation:save")
     public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
-		categoryBrandRelationService.save(categoryBrandRelation);
+		categoryBrandRelationService.saveDetils(categoryBrandRelation);
 
         return R.ok();
     }

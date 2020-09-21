@@ -7,9 +7,12 @@ import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.Query;
 import com.edu.gulimall.product.dao.CategoryDao;
 import com.edu.gulimall.product.entity.CategoryEntity;
+import com.edu.gulimall.product.service.CategoryBrandRelationService;
 import com.edu.gulimall.product.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +25,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 //    继承的ServiceImpl<CategoryDao, CategoryEntity>中已经存在了baseMapper,相当于已经进行了注入，不可以反复注入
 //    @Autowired
 //    CategoryDao categoryDao;
+
+    @Resource
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -79,6 +85,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Collections.reverse(paths);
 
         return (Long[]) list.toArray(new Long[list.size()]);
+    }
+
+    /**
+     * 级联更新所有的数据
+     * @param category
+     */
+    @Transactional// 事务注解
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        // 更新关联表数据
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
     private List<Long> findParent(Long catelogId, List<Long> paths){
