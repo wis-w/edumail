@@ -2,10 +2,9 @@ package com.edu.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 商品属性
@@ -56,5 +55,8 @@ public class AttrEntity implements Serializable {
 	 * $column.comments
 	 */
 	private Integer showDesc;
+
+//	@TableField(exist = false)
+//	private Long attrGroupId;
 
 }
