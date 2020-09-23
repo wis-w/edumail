@@ -2,14 +2,19 @@ package com.edu.gulimall.product.controller;
 
 import com.edu.common.utils.PageUtils;
 import com.edu.common.utils.R;
+import com.edu.gulimall.product.entity.AttrEntity;
 import com.edu.gulimall.product.entity.AttrGroupEntity;
 import com.edu.gulimall.product.service.AttrGroupService;
+import com.edu.gulimall.product.service.AttrService;
 import com.edu.gulimall.product.service.CategoryService;
+import com.edu.gulimall.product.vo.AttrGroupRelationVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,6 +34,32 @@ public class AttrGroupController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Resource
+    AttrService attrService;
+
+    /**
+     * 删除属性分组信息
+     * @param vos
+     * @return
+     */
+    @PostMapping("/attr/relation/delete")
+    public R relationDelete(@RequestBody AttrGroupRelationVo[] vos) {
+        log.info("删除的属性数组：{}", vos.toString());
+        attrService.deleteRelation(vos);
+        return R.ok();
+    }
+
+    /**
+     * 属性分组，关联关系
+     * @return
+     */
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        log.info("查询的属性ID：{}", attrgroupId);
+        List<AttrEntity> list = attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data", list);
+    }
 
     /**
      * 列表

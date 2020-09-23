@@ -39,7 +39,7 @@ public class GulimallExeceptionControllerAdvice {
      * @param t
      * @return
      */
-    @ExceptionHandler(value = Throwable.class)
+    // @ExceptionHandler(value = Throwable.class)
     public R handlerException(Throwable t) {
         log.info("未知的异常捕获机制:{},异常类型:{}", t.getMessage(), t.getClass());
         return R.error(BizCodeEnume.UNKNOW_EXCPTION.getCode(), BizCodeEnume.UNKNOW_EXCPTION.getMessage());
