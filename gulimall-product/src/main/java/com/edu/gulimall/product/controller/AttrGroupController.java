@@ -39,6 +39,18 @@ public class AttrGroupController {
     AttrService attrService;
 
     /**
+     * 关联分组，查询未在该分类的可分类属性
+     *
+     * @return
+     */
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNotRelation(@PathVariable("attrgroupId") Long attrgroupId,@RequestParam Map<String, Object> params) {
+        log.info("关联分组，查询未在该分类的可分类属性");
+        PageUtils pageUtils = attrService.getNoRelation(attrgroupId, params);
+        return R.ok().put("page", pageUtils);
+    }
+
+    /**
      * 删除属性分组信息
      * @param vos
      * @return
